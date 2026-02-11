@@ -1,0 +1,25 @@
+kubectl create secret generic ops-manager-admin-secret \
+  --from-literal=Username="admin@test.com" \
+  --from-literal=Password="Admin@123" \
+  --from-literal=FirstName="admin" \
+  --from-literal=LastName="admin"
+---
+apiVersion: mongodb.com/v1
+kind: MongoDBOpsManager
+metadata:
+  name: om
+spec:
+  replicas: 1
+  version: "8.0.18"
+  adminCredentials: ops-manager-admin-secret
+  applicationDatabase:
+    members: 3
+    version: "8.0.15-ent"
+    podSpec:
+      podTemplate:
+        spec:
+          securityContext:
+            fsGroup: 2000
+            runAsNonRoot: true
+            runAsUser: 2000
+          
