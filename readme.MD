@@ -1,4 +1,4 @@
-# MongoDB Enterprise Kubernetes — Internal Knowledge Base
+# MongoDB Enterprise Kubernetes pocket guide. 
 
 A single reference for Kubernetes commands, MongoDB operator CRDs, troubleshooting guides, and known issues. Built to help new and existing team members triage Kubernetes support cases faster.
 
