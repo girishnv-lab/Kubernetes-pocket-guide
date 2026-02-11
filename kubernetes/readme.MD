@@ -1,1 +1,1 @@
-This folder is specific to kubernetes related documents. 
+This folder is specific to Kubernetes-related instructions.
