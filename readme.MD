@@ -19,7 +19,7 @@ A single reference for Kubernetes commands, MongoDB operator CRDs, troubleshooti
 
 | Guide | Description |
 |---|---|
-| [Enabling TLS for ReplicaSet](docs/enabling-tls-mongodb-replicaset-kubernetes.md) | Manual TLS certificate setup for a MongoDB ReplicaSet |
+| [Enabling TLS for ReplicaSet](https://github.com/girishnv-lab/Kubernetes-pocket-guide/blob/main/kubernetes/Installing%20Kubernetes%20on%20Bare-Metal%20RHEL%209.md) | Manual TLS certificate setup for a MongoDB ReplicaSet |
 | [ReplicaSet with cert-manager](docs/mongodb-replicaset-certmanager.md) | Automated TLS using cert-manager with X509 authentication |
 | [Sharded Cluster with TLS](docs/mongodb-sharded-cluster-tls.md) | TLS for sharded clusters — covers shard, config server, and mongos certs |
 
