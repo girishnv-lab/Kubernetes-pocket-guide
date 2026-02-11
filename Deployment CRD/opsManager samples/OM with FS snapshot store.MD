@@ -9,8 +9,8 @@
 │  Kubernetes Cluster                                     │
 │                                                         │
 │  ┌──────────────┐    ┌──────────────┐                   │
-│  │  Ops Manager  │    │ Backup Daemon │                  │
-│  │    Pod(s)     │    │    Pod(s)     │                  │
+│  │  Ops Manager │    │ Backup Daemon│                   │
+│  │    Pod(s)    │    │    Pod(s)    │                   │
 │  │              │    │              │                   │
 │  │ /snapshot_   │    │ /snapshot_   │                   │
 │  │   store      │    │   store      │                   │
@@ -25,14 +25,14 @@
 │                   │                                     │
 └───────────────────┼─────────────────────────────────────┘
                     │
-             ┌──────┴──────┐
-             │  NFS Server  │
+             ┌──────┴────────┐
+             │  NFS Server   │
              │ /snapshotstore│
-             └──────────────┘
+             └───────────────┘
 
   ┌──────────────┐
-  │  Oplog DB     │  (Standalone MongoDB for oplog storage)
-  │  (oplog-db)   │
+  │  Oplog DB    │  (Standalone MongoDB for oplog storage)
+  │  (oplog-db)  │
   └──────────────┘
 ```
 
@@ -184,7 +184,7 @@ kind: MongoDB
 metadata:
   name: oplog-db
 spec:
-  version: "6.0.5-ent"
+  version: "8.0.15-ent"
   opsManager:
     configMapRef:
       name: my-project
@@ -223,7 +223,7 @@ metadata:
   name: om
 spec:
   replicas: 1
-  version: "7.0.3"
+  version: "8.0.18"
   adminCredentials: ops-manager-admin-secret
 
   # Mount the snapshot store into the Ops Manager pod
@@ -275,7 +275,7 @@ spec:
 
   applicationDatabase:
     members: 3
-    version: "6.0.5-ent"
+    version: "8.0.15-ent"
 ```
 
 ### Key Configuration Notes
