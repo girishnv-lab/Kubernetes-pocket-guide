@@ -1,0 +1,191 @@
+# Kubernetes & kubectl Cheatsheet
+
+> **Full reference:** [kubectl Cheatsheet (GitHub Gist)](https://gist.github.com/jonlabelle/95c97d230b805f77466417a3f4009d25)
+
+---
+
+## Context & Configuration
+
+```bash
+# Set default namespace for current context
+kubectl config set-context --current --namespace=<namespace>
+
+# View current kubeconfig
+kubectl config view
+```
+
+---
+
+## Cluster & Node Management
+
+```bash
+# Check node status
+kubectl get nodes
+
+# Assign worker role label to a node
+kubectl label node <node_name> node-role.kubernetes.io/worker=worker
+
+# Remove control-plane taint (allows scheduling pods on master)
+kubectl taint nodes <node_name> node-role.kubernetes.io/control-plane:NoSchedule-
+
+# Mark node as unschedulable
+kubectl cordon <node_name>
+
+# Evacuate all pods from a node
+kubectl drain <node_name> --ignore-daemonsets
+
+# Add a taint to prevent scheduling during recovery
+kubectl taint nodes <node_name> key=value:NoSchedule
+
+# Remove a failed node from the cluster
+kubectl delete node <node_name>
+
+# Check health of cluster components (etcd, scheduler, etc.)
+kubectl get componentstatuses
+```
+
+---
+
+## Pod Operations
+
+```bash
+# List all pods across all namespaces
+kubectl get pods --all-namespaces
+
+# Get detailed info about a pod
+kubectl describe pod <pod_name>
+
+# View logs of a specific container in a pod
+kubectl logs <pod_name> -c <container_name>
+
+# Shell into a running pod
+kubectl exec -it <pod_name> -- /bin/sh
+
+# Force-delete a stuck/crashed pod
+kubectl delete pod <pod_name> --grace-period=0 --force
+
+# List all containers in a pod
+kubectl get pod <pod_name> -o jsonpath='{range .spec.containers[*]}{.name}{"\n"}{end}'
+```
+
+---
+
+## StatefulSets & Deployments
+
+```bash
+# Scale down a statefulset to 0
+kubectl scale statefulset <sts_name> --replicas=0 -n <namespace>
+
+# Roll back a failed deployment
+kubectl rollout undo deployment <deployment_name>
+```
+
+---
+
+## Events & Troubleshooting
+
+```bash
+# List events sorted by time (most recent last)
+kubectl get events --all-namespaces --sort-by='.metadata.creationTimestamp'
+
+# Check node resource usage (requires metrics-server)
+kubectl top nodes
+
+# Check pod resource usage across all namespaces
+kubectl top pods --all-namespaces
+
+# Verify service endpoints are resolving
+kubectl get endpoints <service_name>
+
+# List all available API resources
+kubectl api-resources --verbs=list
+```
+
+---
+
+## Resource Inspection
+
+```bash
+# View CPU requests and limits for all pods
+kubectl get pods -o custom-columns=POD:.metadata.name,CPU_REQ:.spec.containers[*].resources.requests.cpu,CPU_LIM:.spec.containers[*].resources.limits.cpu
+
+# View memory requests and limits
+kubectl get pods -n <namespace> -o custom-columns=POD:.metadata.name,MEM_REQ:.spec.containers[*].resources.requests.memory,MEM_LIM:.spec.containers[*].resources.limits.memory
+
+# List all container images running in the cluster
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec['initContainers', 'containers'][*].image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c
+```
+
+---
+
+## MongoDB-Specific
+
+```bash
+# Shell into a Prometheus pod in the mongodb namespace
+kubectl exec -it -n mongodb $(kubectl get pods -n mongodb -l app=prometheus -o jsonpath="{.items[0].metadata.name}") -- sh
+
+# Check TLS certificate expiry from a Kubernetes secret
+kubectl get secret <secret_name> -n mongodb -o jsonpath="{.data.tls\.crt}" | base64 -d | openssl x509 -noout -text | grep 'Not After'
+
+# Get all MongoDB custom resources
+kubectl get mongodb -A
+```
+
+---
+
+## etcd Recovery
+
+```bash
+# Restore etcd from a snapshot backup
+etcdctl --endpoints=https://etcd-server:2379 snapshot restore backup.db
+
+# Reapply resources from a backup manifest
+kubectl apply -f backup.yaml
+```
+
+---
+
+## Shell Aliases
+
+Add to `~/.bashrc` and run `source ~/.bashrc`. Append `echo "[[ -f ~/.bashrc ]] && . ~/.bashrc" >> ~/.bash_profile` to ensure aliases load in login shells.
+
+### Standard kubectl (Kind, kubeadm, etc.)
+
+```bash
+alias k="kubectl"
+alias kg="kubectl get"
+alias kd="kubectl describe"
+alias kgp="kubectl get pods"
+alias kdp="kubectl describe pod"
+alias kgs="kubectl get sts"
+alias kds="kubectl describe sts"
+alias kdsvc="kubectl describe svc"
+alias kgsc="kubectl get secrets"
+alias kgm="kubectl get mongodb -A"
+alias ksh="kubectl exec -it"
+alias wkgp="watch kubectl get pods"
+alias nt="netstat -tulpn"
+alias sd="sudo su"
+```
+
+### MicroK8s
+
+```bash
+alias kubectl="microk8s kubectl"
+alias helm="microk8s helm"
+alias k="microk8s kubectl"
+alias kgp="microk8s kubectl get pods"
+alias kdp="microk8s kubectl describe pod"
+alias kgs="microk8s kubectl get sts"
+alias kds="microk8s kubectl describe sts"
+alias ksh="microk8s kubectl exec -it"
+```
+
+---
+
+## Useful Linux Commands
+
+```bash
+# Find which package provides a binary (RHEL/CentOS)
+yum whatprovides */ldapsearch
+```
