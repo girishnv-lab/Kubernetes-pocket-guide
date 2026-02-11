@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ops-managernp
+  namespace: mongodb  # You can change this to the appropriate namespace
+spec:
+  type: NodePort
+  externalTrafficPolicy: Cluster
+  ports:
+    - protocol: TCP
+      port: 8080          # The port that the service will expose
+      targetPort: 8080    # The port on the pod that the service should forward to
+      nodePort: 30080     # The static port on each node to expose the service
+  selector:
+    app: om-svc  # The label used to select the correct pods

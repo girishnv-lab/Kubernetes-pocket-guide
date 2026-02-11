@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: om-db-external
+  namespace: mongodb
+spec:
+  hostNetwork: true
+  type: NodePort
+  selector:
+    app: om-db-svc
+    controller: mongodb-enterprise-operator
+  ports:
+    - port: 27017
+      targetPort: 27017
+      nodePort: 30081
+
+
