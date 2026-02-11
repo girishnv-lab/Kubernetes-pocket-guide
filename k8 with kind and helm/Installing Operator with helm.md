@@ -82,7 +82,8 @@ kubectl get nodes
 helm repo add mongodb https://mongodb.github.io/helm-charts
 
 # Install the operator into the mongodb namespace
-helm install enterprise-operator mongodb/enterprise-operator --namespace mongodb --create-namespace
+helm install enterprise-operator mongodb/enterprise-operator --namespace mongodb --create-namespace    // Install Kubernetes Operator
+helm install mongodb-controller mongodb/mongodb-kubernetes --namespace mongodb --create-namespace --version <MCKO version>  // Install MCKO
 
 # Verify the operator deployment
 kubectl describe deployments mongodb-enterprise-operator -n mongodb
