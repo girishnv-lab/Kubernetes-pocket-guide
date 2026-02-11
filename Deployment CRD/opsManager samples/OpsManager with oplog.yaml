@@ -1,0 +1,29 @@
+apiVersion: mongodb.com/v1
+kind: MongoDBOpsManager
+metadata:
+  name: ops-manager-backup
+spec:
+  replicas: 1
+  version: 8.0.18
+  adminCredentials: ops-manager-admin-secret
+
+  # Optional. Enabled by default.
+  # Allows configuring backup in Ops Manager.
+  backup:
+    enabled: true
+    members: 2
+
+    # Configures the list of Oplog Store Configs.
+    opLogStores:
+      - name: oplog1
+        # Reference to MongoDB Custom Resource. The Operator watches changes in it and updates Oplog configuration
+        # in Ops Manager.
+        mongodbResourceRef:
+          name: om-mongodb-oplog
+        # Optional. Specify if Oplog database has SCRAM-SHA authentication enabled.
+        mongodbUserRef:
+          name: admin-user
+
+  applicationDatabase:
+    members: 3
+    version: 8.0.15-ent

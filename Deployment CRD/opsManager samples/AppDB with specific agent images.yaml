@@ -1,0 +1,23 @@
+apiVersion: mongodb.com/v1
+kind: MongoDBOpsManager
+metadata:
+  name: om
+spec:
+  replicas: 1
+  version: "8.0.18"
+  adminCredentials: ops-manager-admin-secret
+  applicationDatabase:
+    members: 3
+    version: "8.0.15-ent"
+    podSpec:
+      podTemplate:
+        spec:
+          containers:
+            - name: mongodb-agent
+              image: quay.io/mongodb/mongodb-agent:11.12.0.7388-1   // read the latest release date and change the agent version as per the document.     
+            - name: mongodb-agent-monitoring
+              image: quay.io/mongodb/mongodb-agent:11.0.5.6963-1   // read the latest release date and change the agent version as per the document.
+          securityContext:
+            fsGroup: 2000
+            runAsNonRoot: true
+            runAsUser: 2000
