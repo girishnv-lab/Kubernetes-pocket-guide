@@ -1,7 +1,7 @@
 # MongoDB Enterprise Kubernetes pocket guide. 
 
 A single reference for Kubernetes commands, MongoDB operator CRDs, troubleshooting guides, and known issues. Built to help new and existing team members triage Kubernetes support cases faster.
-# # # Would you like to add something? Drop a mail to gireesh.n@mongodb.com or Slack. 
+### Would you like to add something? Drop a mail to gireesh.n@mongodb.com or Slack. 
 
 ---
 
