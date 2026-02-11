@@ -137,7 +137,7 @@ metadata:
 spec:
   type: ReplicaSet
   members: 3
-  version: "6.0.5-ent"
+  version: "8.0.15-ent"
   opsManager:
     configMapRef:
       name: my-project
