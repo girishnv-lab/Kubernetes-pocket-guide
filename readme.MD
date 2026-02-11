@@ -13,7 +13,7 @@ A single reference for Kubernetes commands, MongoDB operator CRDs, troubleshooti
 |---|---|
 | [Installing Kubernetes on Bare-Metal RHEL 9](https://github.com/girishnv-lab/Kubernetes-pocket-guide/blob/main/kubernetes/Installing%20Kubernetes%20on%20Bare-Metal%20RHEL%209.md) | Full cluster setup with kubeadm, Containerd, and Calico on RHEL 9 |
 | [Installing MongoDB Operator with Helm](https://github.com/girishnv-lab/Kubernetes-pocket-guide/blob/main/k8%20with%20kind%20and%20helm/Installing%20Operator%20with%20helm.md) | Kind cluster, Helm, and MongoDB Enterprise Operator deployment |
-| [Kubernetes Reset & Cleanup](docs/kubernetes-reset-cleanup.md) | Complete teardown of a Kubernetes node — packages, data, and config |
+| [Kubernetes Reset & Cleanup](https://github.com/girishnv-lab/Kubernetes-pocket-guide/blob/main/kubernetes/Resetting%20and%20Clean%20up%20k8%20cluster.md) | Complete teardown of a Kubernetes node — packages, data, and config |
 
 ### TLS & Security
 
