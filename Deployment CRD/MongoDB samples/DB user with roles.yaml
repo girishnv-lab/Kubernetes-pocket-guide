@@ -1,0 +1,27 @@
+# Create the below secret first
+#kubectl create secret generic mongouserpassword \
+#  --from-literal=mongouserpassword=password123
+
+
+apiVersion: mongodb.com/v1
+kind: MongoDBUser
+metadata:
+  namespace: mongodb
+  name: mongouser
+spec:
+  passwordSecretKeyRef:
+    name: mongouserpassword 
+    key: mongouserpassword 
+  username: mongo-user
+  db: admin
+  mongodbResourceRef:
+    name: <MongoDB resource reference - replicaset / shard / standalone >
+  roles:
+    - db: admin
+      name: clusterAdmin
+    - db: admin
+      name: readWriteAnyDatabase
+    - db: admin
+      name: dbAdminAnyDatabase
+    - db: admin
+      name: userAdminAnyDatabase

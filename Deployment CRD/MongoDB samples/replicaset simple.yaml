@@ -1,0 +1,17 @@
+# Replicaset (make sure configmap and organization-secret are created before)
+
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+  name: k8-rs1
+spec:
+  members: 3
+  version: 8.0.15-ent
+  type: ReplicaSet
+
+  opsManager:
+    configMapRef:
+      name: my-project
+  credentials: organization-secret
+
+  persistent: false

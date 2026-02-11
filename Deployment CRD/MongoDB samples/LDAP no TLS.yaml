@@ -1,0 +1,43 @@
+# Create the below secret first
+# kubectl create secret generic automation-config-password \
+#  --from-literal=automationConfigPassword=password123
+
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+  name: mongo-nuxeo
+  namespace: nuxeo-mongo-dev
+spec:
+  credentials: obsmgr-connection
+  members: 3
+  opsManager:
+    configMapRef:
+      name: nuxeo-dev
+  persistent: true
+  security:
+    authentication:
+      enabled: true
+      modes:
+        - LDAP
+        - SCRAM-SHA-256
+      agents:
+        mode: LDAP
+        automationUserName: mms-automation-agent
+        automationPasswordSecretRef:
+          name: automation-config-password
+          key: automationConfigPassword
+        automationLdapGroupDN: cn=MongoDB_NuxeoDEV_Agent,cn=groups,dc=takamol,dc=eg
+      ldap:
+        servers:
+          - x.x.x.x:30389
+        bindQueryUser: cn=Directory Manager
+        bindQueryPasswordSecretRef:
+          name: ldap-bind-secret
+        userToDNMapping: '[{match: "(.+)", ldapQuery: "ou=People,dc=takamol,dc=eg??sub?(uid={0})"}]'
+        authzQueryTemplate: cn=groups,dc=takamol,dc=eg??sub?(uniquemember={USER})
+        transportSecurity: none
+        validateLDAPServerConfig: true
+  type: ReplicaSet
+  version: 8.0.15-ent
+
+
