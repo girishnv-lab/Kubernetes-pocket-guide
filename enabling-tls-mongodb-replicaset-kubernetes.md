@@ -20,6 +20,11 @@
 
 ---
 
+## Use this repository to generate certificates strictly for testing. 
+```
+https://github.com/bhartiroshan/tlsgencer
+```
+
 ## Step 1: Generate Certificates with Correct SANs
 
 Each pod in a StatefulSet gets a predictable DNS name. Your TLS certificate **must** include a SAN (Subject Alternative Name) entry for every replica set member.
