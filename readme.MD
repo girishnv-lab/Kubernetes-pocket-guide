@@ -19,47 +19,23 @@ A single reference for Kubernetes commands, MongoDB operator CRDs, troubleshooti
 
 | Guide | Description |
 |---|---|
-| [Enabling TLS for ReplicaSet](https://github.com/girishnv-lab/Kubernetes-pocket-guide/blob/main/kubernetes/Installing%20Kubernetes%20on%20Bare-Metal%20RHEL%209.md) | Manual TLS certificate setup for a MongoDB ReplicaSet |
-| [ReplicaSet with cert-manager](docs/mongodb-replicaset-certmanager.md) | Automated TLS using cert-manager with X509 authentication |
-| [Sharded Cluster with TLS](docs/mongodb-sharded-cluster-tls.md) | TLS for sharded clusters — covers shard, config server, and mongos certs |
+| [Enabling TLS for ReplicaSet](https://github.com/girishnv-lab/Kubernetes-pocket-guide/blob/main/Deployment%20CRD/MongoDB%20samples/MongoDB%20Sharded%20Cluster%20with%20TLS.md) | Manual TLS certificate setup for a MongoDB ReplicaSet |
+| [ReplicaSet with cert-manager](https://github.com/girishnv-lab/Kubernetes-pocket-guide/blob/main/Deployment%20CRD/MongoDB%20samples/MongoDB%20ReplicaSet%20with%20cert-manager%20TLS.md) | Automated TLS using cert-manager with X509 authentication |
+| [Sharded Cluster with TLS](https://github.com/girishnv-lab/Kubernetes-pocket-guide/blob/main/Deployment%20CRD/MongoDB%20samples/MongoDB%20Sharded%20Cluster%20with%20TLS.md) | TLS for sharded clusters — covers shard, config server, and mongos certs |
 
 ### Backup & Operations
 
 | Guide | Description |
 |---|---|
-| [Ops Manager Snapshots with Filesystem Store](docs/enabling-opsmanager-snapshots-filesystem-store.md) | NFS-backed backup configuration for Ops Manager |
+| [Ops Manager Snapshots with Filesystem Store](https://github.com/girishnv-lab/Kubernetes-pocket-guide/blob/main/Deployment%20CRD/opsManager%20samples/OM%20with%20FS%20snapshot%20store.MD) | NFS-backed backup configuration for Ops Manager |
 
 ### Quick Reference
 
 | Guide | Description |
 |---|---|
-| [kubectl Cheatsheet](docs/kubectl-cheatsheet.md) | Common commands, shell aliases, and MongoDB-specific one-liners |
-| [Log Collection Guide](docs/kubernetes-log-collection.md) | What logs to collect for different failure scenarios |
+| [kubectl Cheatsheet](https://github.com/girishnv-lab/Kubernetes-pocket-guide/blob/main/kubernetes/Kubernetes%20%26%20kubectl%20Cheatsheet.md) | Common commands, shell aliases, and MongoDB-specific one-liners |
+| [Log Collection Guide](https://github.com/girishnv-lab/Kubernetes-pocket-guide/blob/main/Capturing%20Kubernetes%20logs.MD) | What logs to collect for different failure scenarios |
 
 ---
 
-## Repo Structure
-
-```
-├── README.md
-└── docs/
-    ├── installing-kubernetes-bare-metal-rhel9.md
-    ├── installing-mongodb-operator-helm.md
-    ├── kubernetes-reset-cleanup.md
-    ├── enabling-tls-mongodb-replicaset-kubernetes.md
-    ├── mongodb-replicaset-certmanager.md
-    ├── mongodb-sharded-cluster-tls.md
-    ├── enabling-opsmanager-snapshots-filesystem-store.md
-    ├── kubectl-cheatsheet.md
-    └── kubernetes-log-collection.md
-```
-
----
-
-## Contributing
-
-1. Create a new `.md` file in the `docs/` directory
-2. Add an entry to the appropriate table in this README
-3. Keep guides concise — one topic per document, commands should be copy-pasteable
-4. Include a troubleshooting table at the bottom of each guide where applicable
 
